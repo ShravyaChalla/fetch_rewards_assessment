@@ -24,7 +24,7 @@ This script answers the questions provided in the the assessment link like
 
 Step 5: Go through the data_quality_exploration.ipynb notebook for detailed Data Quality assessment
 
-Step 6: Read the message to the stakeholders in Email.txt
+Step 6: Read the message to the stakeholders in Email.md
 
 
 ## Potential enhancements
