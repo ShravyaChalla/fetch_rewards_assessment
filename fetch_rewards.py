@@ -5,7 +5,7 @@ from sqlalchemy import create_engine, text
 
 # Load the data
 def load_users_data():
-    with open("users.json", "r") as f:
+    with open("./data/users.json", "r") as f:
         raw_data = f.read().strip().splitlines()
     # Parse each JSON object
     data = [json.loads(line) for line in raw_data]
@@ -33,7 +33,7 @@ def load_users_data():
 
 
 def load_receipts_data():
-    with open("receipts.json", "r") as f:
+    with open("./data/receipts.json", "r") as f:
         raw_data = f.read().strip().splitlines()
 
     # Parse each JSON object
@@ -45,7 +45,7 @@ def load_receipts_data():
 
 
 def load_brands_data():
-    with open("brands.json", "r") as f:
+    with open("./data/brands.json", "r") as f:
         raw_data = f.read().strip().splitlines()
 
     # Parse each JSON object
@@ -201,7 +201,7 @@ def create_receipts_table(receipts_df):
 
 
 def create_receipt_items_table(receipts_df):
-    with open("receipts.json", "r") as f:
+    with open("./data/receipts.json", "r") as f:
         raw_data = f.read().strip()
     # Convert to JSON Lines (each line is a valid JSON object)
     json_objects = [
@@ -436,7 +436,7 @@ def main():
 
     # create tables
     (cpg_df, category_df, products_df, receipts_df, receipt_items_df) = create_tables(
-        brands_df, receipts_df, users_df
+        brands_df, receipts_df
     )
 
     # Create a connection to the database
@@ -461,8 +461,6 @@ def main():
         print(row)
     print("Highest average spent receipt status: ", avg_spent[0][1])
 
-    ## THE FOLLOWING 4 QUERIES WILL PRODUCE RESULTS ONLY IF THE DATA QUALITY IS GOOD
-
     # Get the total items purchased for each rewards receipt status
     total_items_purchased = get_total_items_purchased(engine)
     print("Total items purchased for each rewards receipt status:")
@@ -470,6 +468,8 @@ def main():
         print(row)
     print("Highest total items purchased receipt status: ", total_items_purchased[0][1])
 
+    """
+    ## THE FOLLOWING 4 QUERIES WILL PRODUCE RESULTS ONLY IF THE DATA QUALITY IS GOOD
     # Get the top 5 brands by receipts scanned for most recent month
     top_5_brands = get_top_5_brands(engine)
     print("Top 5 brands by receipts scanned for most recent month:")
@@ -497,7 +497,7 @@ def main():
     )
     for row in top_brand_transactions:
         print(row)
-
+    """
 
 if __name__ == "__main__":
     main()
